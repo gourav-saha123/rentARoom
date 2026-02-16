@@ -20,8 +20,9 @@ tenants can discover nearby properties using realtime geospatial search.
 3. Browser Geolocation API — Get user’s current coordinates
 
 ## Future Improvements
-1 Map based property browsing
-2 Advanced filters (price, rooms, amenities)
-3 Authentication for owners and tenants
-4 Real time availability updates
+1. Map based property browsing
+2. Advanced filters (price, rooms, amenities)
+3. Authentication for owners and tenants
+4. Real time availability updates
+
 
