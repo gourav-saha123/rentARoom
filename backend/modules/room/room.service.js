@@ -30,8 +30,28 @@ const getRoomsByDistance = async (location, distance, maxPrice, numberOfRooms) =
     return rooms;
 };
 
+const updateRoomToOccupied = async (roomId) => {
+    const room = await Room.findByIdAndUpdate(
+        roomId,
+        { status: 'occupied' },
+        { new: true }
+    );
+    return room;
+};
+
+const updateRoomToAvailable = async (roomId) => {
+    const room = await Room.findByIdAndUpdate(
+        roomId,
+        { status: 'available' },
+        { new: true }
+    );
+    return room;
+};
+
 module.exports = {
     createRoom,
     getAllRooms,
     getRoomsByDistance,
+    updateRoomToOccupied,
+    updateRoomToAvailable
 };

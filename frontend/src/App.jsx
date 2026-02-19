@@ -1,6 +1,9 @@
 import './App.css'
+import router from './app/router'
+import { RouterProvider } from 'react-router-dom'
 
 function App() {
+<<<<<<< HEAD
 
   return (
     <div>
@@ -8,7 +11,10 @@ function App() {
       <p>kjhliuh</p>
     </div>
   )
+=======
+  return <RouterProvider router={router} />;
+>>>>>>> front
 }
 
-export default App
+export default App;
 

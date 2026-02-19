@@ -1,4 +1,5 @@
-const {createRoom, getAllRooms, getRoomsByDistance} = require('./room.service');
+const {createRoom, getAllRooms, getRoomsByDistance, updateRoomToOccupied, updateRoomToAvailable} = require('./room.service');
+const { Room } = require('../../db/models');
 
 const createRoomHandler = async (req, res) => {
     try {
@@ -55,8 +56,54 @@ const getRoomsByDistanceHandler = async (req, res) => {
     }
 };
 
+const updateToOccupied = async (req, res) => {
+    try {
+        const roomId = req.params.id;
+        const userId = req.user.id;
+
+        // Fetch the room to check ownership
+        const room = await Room.findById(roomId);
+        if (!room) {
+            return res.status(404).json({ message: 'Room not found' });
+        }
+        if (room.admin.toString() !== userId) {
+            return res.status(403).json({ message: 'Unauthorized to update this room' });
+        }
+
+        const updatedRoom = await updateRoomToOccupied(roomId);
+        res.status(200).json(updatedRoom);
+    } catch (error) {
+        // console.error('Error updating room:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const updateToAvailable = async (req, res) => {
+    try {
+        const roomId = req.params.id;
+        const userId = req.user.id;
+
+        // Fetch the room to check ownership
+        const room = await Room.findById(roomId);
+        if (!room) {
+            return res.status(404).json({ message: 'Room not found' });
+        }
+        if (room.admin.toString() !== userId) {
+            return res.status(403).json({ message: 'Unauthorized to update this room' });
+        }
+
+        const updatedRoom = await updateRoomToAvailable(roomId);
+        res.status(200).json(updatedRoom);
+    } catch (error) {
+        // console.error('Error updating room:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createRoomHandler,
     getAllRoomsHandler,
     getRoomsByDistanceHandler,
+    updateToOccupied,
+    updateToAvailable
 };
